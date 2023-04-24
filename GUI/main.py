@@ -90,7 +90,8 @@ class CellCounter(QMainWindow):
             if not inside:
                 self.blobs_list.append(np.array([y_img, x_img, 8, 1]))
                 self.ui.batchInfoLabel.setText("A dot at (" + str(x_img) + ", " + str(y_img) + ") has been added.")
-            image = np.zeros((self.img_height, self.img_width, 3), dtype=np.uint8)
+            # image = np.zeros((self.img_height, self.img_width, 3), dtype=np.uint8)
+            image = self.original_img.copy()
             image[:, :, 0] = self.blob_img
             self.visualize_blobs(image)
         elif (self.ui.cellCntRadioBtn.isChecked()) and \
@@ -122,7 +123,8 @@ class CellCounter(QMainWindow):
                     self.blobs_list.pop(idx)
                     self.ui.batchInfoLabel.setText("A dot at (" + str(x_img) + ", " + str(y_img) + ") has been removed.")
                     break
-            image = np.zeros((self.img_height, self.img_width, 3), dtype=np.uint8)
+            # image = np.zeros((self.img_height, self.img_width, 3), dtype=np.uint8)
+            image = self.original_img.copy()
             image[:, :, 0] = self.blob_img
             self.visualize_blobs(image)
         elif (self.ui.cellCntRadioBtn.isChecked()) and \
@@ -154,7 +156,8 @@ class CellCounter(QMainWindow):
         blobs_expand = np.zeros((blobs.shape[0], 4), dtype=blobs.dtype)
         blobs_expand[:, :3] = blobs
         self.blobs_list = [blob for blob in blobs_expand]
-        image = np.zeros((self.img_height, self.img_width, 3), dtype=np.uint8)
+        # image = np.zeros((self.img_height, self.img_width, 3), dtype=np.uint8)
+        image = self.current_img.copy()
         image[:, :, 0] = self.blob_img
         # image[:, :, 1] = blob_img
         # image[:, :, 2] = blob_img
@@ -263,8 +266,10 @@ class CellCounter(QMainWindow):
             else:
                 blob_img = ((blob_img - blob_img.min()) / (blob_img.max() - blob_img.min()) * 255).astype('uint8')
                 blob_img = np.tile(blob_img[:, :, None], [1, 1, 3])
-                blob_img[:, :, 0] = 0
-                blob_img[:, :, 1] = 0  # Convert cell images to red images following opencv convention
+
+                # put cell image in blue channel as background to facilitate dots counting
+                blob_img[:, :, 0] = cell_img[:, :, 0]
+                blob_img[:, :, 1] = 0
 
             cv2.imwrite(
                 os.path.join(dst_dir, name, 'Dots',
