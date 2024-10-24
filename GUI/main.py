@@ -13,7 +13,7 @@ tf.config.experimental.set_memory_growth(physical_devices[0], True)
 
 from skimage import color
 from PyQt5.QtWidgets import QApplication, QFileDialog, QDialog, QWidget, QMainWindow
-from PyQt5.QtGui import QImage, QPixmap
+from PyQt5.QtGui import QImage, QPixmap, QIcon
 import PyQt5
 from PyQt5.QtCore import Qt
 from ui_mainwindow import Ui_MainWindow
@@ -174,7 +174,7 @@ class CellCounter(QMainWindow):
         mask = self.avg_gray_img >= intensity_thres
         mask = morphology.remove_small_objects(mask, size_thres)
 
-        self.label_type_img = np.zeros_like(self.cell_label_img, dtype=np.int)
+        self.label_type_img = np.zeros_like(self.cell_label_img, dtype=np.int32)
         self.label_img = self.cell_label_img.copy()
         self.label_img[(1 - mask).astype(bool)] = 0
         self.visualize_cells()
@@ -187,7 +187,7 @@ class CellCounter(QMainWindow):
         self.cell_label_img = self.img_object.count_cells(self.model, self.current_img, prob_thres, nms_thres)
         avg_color_img = color.label2rgb(self.cell_label_img, self.current_img, kind='avg')
         self.avg_gray_img = cv2.cvtColor(avg_color_img, cv2.COLOR_RGB2GRAY)
-        self.label_type_img = np.zeros_like(self.cell_label_img, dtype=np.int)
+        self.label_type_img = np.zeros_like(self.cell_label_img, dtype=np.int32)
         self.int_size_thresholding()
 
     def select_input_folder(self):
@@ -385,9 +385,9 @@ class CellCounter(QMainWindow):
             cv2.imwrite(save_image_filename,
                         cv2.cvtColor(self.current_img, cv2.COLOR_RGB2BGR))
 
-    # display_image converts current image from ndarry format to pixmap and assigns it to image display label
+    # display_image converts current image from ndarray format to pixmap and assigns it to image display label
     def display_image(self):
-        display_size = self.ui.imageDisplayLabel.size()  # setting display size to size of the image display label
+        display_size = self.ui.imageDisplayLabel.size()  # setting display to the size of the image display label
 
         image = np.array(self.current_img.copy())  # copying current image to temporary variable for processing pixmap
         zero = np.array([0])
@@ -404,6 +404,7 @@ class CellCounter(QMainWindow):
             self.qpmap_width = pixmap.width()
             self.qpmap_height = pixmap.height()
             self.ui.imageDisplayLabel.setPixmap(pixmap)  # set pixmap to image display label in GUI
+
 
     def visualize_blobs(self, image):
         min_sigma = self.ui.minSigmaSpinBox.value()
@@ -524,6 +525,8 @@ class CellCounter(QMainWindow):
 
 def main():
     app = QApplication(sys.argv)
+    app.setStyle('Fusion')
+    app.setWindowIcon(QIcon("./cct.ico"))
     application = CellCounter()
     application.show()
     sys.exit(app.exec_())

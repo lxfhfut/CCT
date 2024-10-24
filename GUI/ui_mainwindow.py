@@ -31,7 +31,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.setEnabled(True)
-        MainWindow.resize(1920, 1080)
+        MainWindow.setWindowState(Qt.WindowMaximized)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -147,7 +147,7 @@ class Ui_MainWindow(object):
         self.minSigmaSpinLabel = QtWidgets.QLabel(self.centralwidget)
         self.minSigmaSpinLabel.setObjectName("minSigmalSpinLabel")
         self.minSigmaSpinLabel.setToolTip(
-            "This parameter controls the smallest size of the detectable dots. Keep this low to detect smaller dots.")
+            "The smallest size of detectable dots. Keep this low to detect smaller dots.")
         self.minSigmaSpinLabel.setToolTipDuration(5000)
         self.horizontalLayout_3.addWidget(self.minSigmaSpinLabel)
         self.minSigmaSpinBox = QtWidgets.QDoubleSpinBox(self.centralwidget)
@@ -159,7 +159,7 @@ class Ui_MainWindow(object):
         self.maxSigmaSpinLabel = QtWidgets.QLabel(self.centralwidget)
         self.maxSigmaSpinLabel.setObjectName("maxSigmalSpinLabel")
         self.maxSigmaSpinLabel.setToolTip(
-            "This parameter controls the largest size of the detectable dots. Keep this high to detect larger dots.")
+            "The largest size of detectable dots. Keep this high to detect larger dots.")
         self.maxSigmaSpinLabel.setToolTipDuration(5000)
         self.horizontalLayout_3.addWidget(self.maxSigmaSpinLabel)
         self.maxSigmaSpinBox = QtWidgets.QDoubleSpinBox(self.centralwidget)
@@ -175,7 +175,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
         self.numSigmaLabel = QtWidgets.QLabel(self.centralwidget)
         self.numSigmaLabel.setObjectName("numSigmaLabel")
-        self.numSigmaLabel.setToolTip("The number of intermediate values to consider between min_sigma and max_sigma.")
+        self.numSigmaLabel.setToolTip("The number of intermediate values to use in [min_sigma, max_sigma].")
         self.numSigmaLabel.setToolTipDuration(5000)
         self.horizontalLayout_4.addWidget(self.numSigmaLabel)
         self.numSigmaSlider = QtWidgets.QSlider(self.centralwidget)
@@ -196,7 +196,7 @@ class Ui_MainWindow(object):
         self.ablThreshLabel = QtWidgets.QLabel(self.centralwidget)
         self.ablThreshLabel.setObjectName("ablThreshLabel")
         self.ablThreshLabel.setToolTip(
-            "Local maxima smaller than abl_threshold are ignored. Reduce this to detect blobs with lower intensities. If set to 0, only rel_threshold will be used. ")
+            "Reduce this to detect blobs with lower intensities. If set to 0, only rel_threshold will be used. ")
         self.ablThreshLabel.setToolTipDuration(5000)
         self.horizontalLayout_2.addWidget(self.ablThreshLabel)
         self.ablThreshSlider = QtWidgets.QSlider(self.centralwidget)
@@ -217,7 +217,7 @@ class Ui_MainWindow(object):
         self.relThreshLabel = QtWidgets.QLabel(self.centralwidget)
         self.relThreshLabel.setObjectName("relThreshLabel")
         self.relThreshLabel.setToolTip(
-            "Minimum intensity of peaks, calculated as max(log_space) * rel_threshold. If abs_threshold is also specified, whichever threshold is larger will be used.")
+            "Minimum intensity of peaks. If abs_threshold is also specified, whichever is larger will be used.")
         self.horizontalLayout_5.addWidget(self.relThreshLabel)
         self.relThreshSlider = QtWidgets.QSlider(self.centralwidget)
         self.relThreshSlider.setOrientation(QtCore.Qt.Horizontal)
@@ -275,7 +275,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_8.setObjectName("horizontalLayout_8")
         self.probThreshLabel = QtWidgets.QLabel(self.centralwidget)
         self.probThreshLabel.setObjectName("probThreshLabel")
-        self.probThreshLabel.setToolTip("Cells with a probability below prob_thresh are ignored. Reduce this to detect more cells.")
+        self.probThreshLabel.setToolTip("Cells likelihood threshold. Reduce this to detect more cells.")
         self.probThreshLabel.setToolTipDuration(5000)
         self.horizontalLayout_8.addWidget(self.probThreshLabel)
 
@@ -494,8 +494,8 @@ class Ui_MainWindow(object):
         self.verticalLayout.addItem(spacerItem2)
 
         # add vertical layout to grid layout
-        self.gridLayout.addLayout(self.verticalLayout, 2, 0, 1, 2)
-        self.gridLayout.setColumnStretch(0, 2)
+        self.gridLayout.addLayout(self.verticalLayout, 2, 0, 1, 1)
+        self.gridLayout.setColumnStretch(0, 1)
 
         self.verticalLayout_right = QtWidgets.QVBoxLayout()
         self.verticalLayout_right.setSpacing(6)
@@ -586,7 +586,7 @@ class Ui_MainWindow(object):
         self.dotCntRadioBtn.setText(_translate("MainWindow", "Dots Counter"))
         self.minSigmaSpinLabel.setText(_translate("MainWindow", "Min sigma"))
         self.maxSigmaSpinLabel.setText(_translate("MainWindow", "Max sigma"))
-        self.numSigmaLabel.setText(_translate("MainWindow", "Num steps "))
+        self.numSigmaLabel.setText(_translate("MainWindow", "No. of steps "))
         self.numSigmaValueLabel.setText(_translate("MainWindow", "2"))
         self.ablThreshLabel.setText(_translate("MainWindow", "Abl thresh. "))
         self.ablValueLabel.setText(_translate("MainWindow", "0.25"))

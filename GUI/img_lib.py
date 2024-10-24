@@ -32,7 +32,7 @@ class ImageProcLib(object):
 
         circles = blobs.copy()
         circles[:, 2] *= 8
-        scores = blob_img[circles[:, 0].astype(np.int), circles[:, 1].astype(np.int)]
+        scores = blob_img[circles[:, 0].astype(np.int32), circles[:, 1].astype(np.int32)]
         nms_circles = self.nms_circles(circles, scores, 0.1)
 
         nms_circles[:, 2] /= 8
