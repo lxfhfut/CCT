@@ -277,7 +277,7 @@ class CellCounter(QMainWindow):
             cv2.imwrite(
                 os.path.join(dst_dir, name, 'Cells',
                              name + '_series_' + str(series_idx + 1) + '_' + series_name + '.png'), cell_img)
-        self.ui.batchInfoLabel.setText(f"Images have been saved to '{dst_dir}'.".)
+        self.ui.batchInfoLabel.setText(f"Images have been saved to '{dst_dir}'.")
 
     def select_output_folder(self):
         name = QFileDialog.getExistingDirectory(self, "Select Output Folder", directory=self.open_file_location)
@@ -305,7 +305,7 @@ class CellCounter(QMainWindow):
         img_names = []
         counts = []
         for idx, img_path in enumerate(img_paths):
-            self.ui.batchInfoLabel.setText(f"Processing image {idx+1}/{len(img_paths)} ...".)
+            self.ui.batchInfoLabel.setText(f"Processing image {idx+1}/{len(img_paths)} ...")
             self.ui.batchInfoLabel.repaint()
             QApplication.processEvents()
             img_names.append(os.path.basename(img_path))
