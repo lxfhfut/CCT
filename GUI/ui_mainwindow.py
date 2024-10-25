@@ -518,6 +518,7 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.imageDisplayLabel.sizePolicy().
                                      hasHeightForWidth())
         self.imageDisplayLabel.setSizePolicy(sizePolicy)
+        self.imageDisplayLabel.setScaledContents(False)
         self.imageDisplayLabel.setAutoFillBackground(False)
         self.imageDisplayLabel.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.imageDisplayLabel.setText("")

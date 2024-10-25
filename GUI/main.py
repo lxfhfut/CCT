@@ -231,7 +231,7 @@ class CellCounter(QMainWindow):
         pathlib.Path(os.path.join(dst_dir, name, 'Dots')).mkdir(parents=True, exist_ok=True)
         pathlib.Path(os.path.join(dst_dir, name, 'Cells')).mkdir(parents=True, exist_ok=True)
         for series_idx in range(lif_obj.num_images):
-            self.ui.batchInfoLabel.setText("Processing series {}/{} ...".format(series_idx + 1, lif_obj.num_images))
+            self.ui.batchInfoLabel.setText(f"Processing series {series_idx + 1}/{lif_obj.num_images} ...")
             self.ui.batchInfoLabel.repaint()
             QApplication.processEvents()
             series = lif_obj.get_image(series_idx)
@@ -277,7 +277,7 @@ class CellCounter(QMainWindow):
             cv2.imwrite(
                 os.path.join(dst_dir, name, 'Cells',
                              name + '_series_' + str(series_idx + 1) + '_' + series_name + '.png'), cell_img)
-        self.ui.batchInfoLabel.setText("Images have been saved to '{}'.".format(dst_dir))
+        self.ui.batchInfoLabel.setText(f"Images have been saved to '{dst_dir}'.".)
 
     def select_output_folder(self):
         name = QFileDialog.getExistingDirectory(self, "Select Output Folder", directory=self.open_file_location)
@@ -305,7 +305,7 @@ class CellCounter(QMainWindow):
         img_names = []
         counts = []
         for idx, img_path in enumerate(img_paths):
-            self.ui.batchInfoLabel.setText("Processing image {}/{} ...".format(idx+1, len(img_paths)))
+            self.ui.batchInfoLabel.setText(f"Processing image {idx+1}/{len(img_paths)} ...".)
             self.ui.batchInfoLabel.repaint()
             QApplication.processEvents()
             img_names.append(os.path.basename(img_path))
@@ -331,7 +331,7 @@ class CellCounter(QMainWindow):
              df = DataFrame({'Image name': img_names, 'Number of cells': counts})
              df.to_excel(os.path.join(output_dir, 'Result_cells.xlsx'), sheet_name='sheet1', index=False)
 
-        self.ui.batchInfoLabel.setText("Results have been saved to \n{}.".format(output_dir))
+        self.ui.batchInfoLabel.setText(f"Results have been saved to \n{output_dir}.")
 
     # called when Open button is clicked
     def open_image(self):
@@ -435,9 +435,10 @@ class CellCounter(QMainWindow):
                         break
         self.num_dots = len(self.blobs_list)
         self.current_img = image
-        self.ui.resultLabelMiddle.setText(
-            'min sigma: {:.2f}\nmax sigma: {:.2f}\nnum_sigma: {}\nabl_thres: {}\nrel_thres: {}\n\nDots detected: {}'.format(
-                min_sigma, max_sigma, num_sigma, abl_thres, rel_thres, self.num_dots))
+        # self.ui.resultLabelMiddle.setText(
+        #     'min sigma: {:.2f}\nmax sigma: {:.2f}\nnum_sigma: {}\nabl_thres: {}\nrel_thres: {}\n\nDots detected: {}'.format(
+        #         min_sigma, max_sigma, num_sigma, abl_thres, rel_thres, self.num_dots))
+        self.ui.resultLabelMiddle.setText(f'Dots detected: {self.num_dots}')
         self.display_image()
 
     def visualize_cells(self):
@@ -479,9 +480,10 @@ class CellCounter(QMainWindow):
 
         prob_thres = self.ui.probThreshSlider.value() / 20.0
         nms_thres = self.ui.nmsThreshSlider.value() / 20.0
-        self.ui.resultLabelMiddle.setText(
-            'prob_thres: {:.2f}\nnms_thres: {:.2f}\nmin_intensity: {}\nmin_size: {}\n\nCells detected: {}'.format(
-                prob_thres, nms_thres, intensity_thres, size_thres, self.num_cells))
+        # self.ui.resultLabelMiddle.setText(
+        #     'prob_thres: {:.2f}\nnms_thres: {:.2f}\nmin_intensity: {}\nmin_size: {}\n\nCells detected: {}'.format(
+        #         prob_thres, nms_thres, intensity_thres, size_thres, self.num_cells))
+        self.ui.resultLabelMiddle.setText(f'Cells detected: {self.num_cells}')
         self.display_image()
 
     def label2img_coordinates(self, x, y):
