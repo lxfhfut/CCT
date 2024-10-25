@@ -34,6 +34,7 @@ dependencies:
     - debugpy==1.8.7
     - decorator==5.1.1
     - defusedxml==0.7.1
+    - et-xmlfile==1.1.0
     - exceptiongroup==1.2.2
     - executing==2.1.0
     - fastjsonschema==2.20.0
@@ -88,6 +89,7 @@ dependencies:
     - numpy==1.26.4
     - opencv-python==4.10.0.84
     - opencv-python-headless==4.10.0.84
+    - openpyxl==3.1.5
     - opt-einsum==3.4.0
     - optree==0.13.0
     - packaging==24.1

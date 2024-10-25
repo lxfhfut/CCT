@@ -482,6 +482,7 @@ class Ui_MainWindow(object):
         self.verticalLayout.addWidget(self.resultLabelMiddle)
         self.batchInfoLabel = QtWidgets.QLabel(self.centralwidget)
         self.batchInfoLabel.setObjectName("batchInfoLabel")
+        self.batchInfoLabel.setWordWrap(True)
         self.batchInfoLabel.setText("")
         self.verticalLayout.addWidget(self.batchInfoLabel)
         self.resultLabelBottom = QtWidgets.QLabel(self.centralwidget)

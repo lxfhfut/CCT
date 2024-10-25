@@ -326,10 +326,10 @@ class CellCounter(QMainWindow):
 
         if self.ui.dotCntRadioBtn.isChecked():
              df = DataFrame({'Image name': img_names, 'Number of dots': counts})
-             df.to_excel(os.path.join(output_dir, 'Result_dots.xlsx'), sheet_name='sheet1', index=False)
+             df.to_csv(os.path.join(output_dir, 'Result_dots.csv'), index=False)
         else:
              df = DataFrame({'Image name': img_names, 'Number of cells': counts})
-             df.to_excel(os.path.join(output_dir, 'Result_cells.xlsx'), sheet_name='sheet1', index=False)
+             df.to_csv(os.path.join(output_dir, 'Result_cells.csv'), index=False)
 
         self.ui.batchInfoLabel.setText(f"Results have been saved to \n{output_dir}.")
 
