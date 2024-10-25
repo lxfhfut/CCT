@@ -93,7 +93,7 @@ python ./GUI/main.py
    - Choose output directory for results
    - Click "Process" to start batch analysis with the selected parameters
    
-   **The counting results are included in the file name of the saved image and are also exported to a separated CSV file.**
+   **The counting results are included in the file name of the saved image and are also saved to a separated CSV file.**
    
    <img src="./gif/dots_batch.gif" width="900">
  
