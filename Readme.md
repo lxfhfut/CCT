@@ -62,7 +62,7 @@ python ./GUI/main.py
 	
 	**Counting dots on a merged image is often easier, as only the dots associated with cells are of interest. In such combined analysis, make sure to place dots in the red channel and cells in the blue channel.**
 	
-  <img src="./gif/file_converter.gif" width="900">
+   <img src="./gif/file_converter.gif" width="900">
 
 2. **Dot Counting**
    - Select "Dots Counter" radio button
